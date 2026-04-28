@@ -71,3 +71,1368 @@
     flex-wrap: wrap;
     gap: 12px;
   }
+
+  .logo {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-shadow: 0 0 20px rgba(0,212,170,0.5);
+  }
+
+  .logo span { color: var(--text2); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .level-badge {
+    background: var(--surface2);
+    border: 1px solid var(--accent2);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    text-shadow: 0 0 10px rgba(124,111,255,0.4);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--xp-bar);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .stat-card:hover { border-color: var(--border-bright); transform: translateY(-2px); }
+  .stat-card:hover::before { opacity: 1; }
+
+  .stat-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .stat-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-value.accent { color: var(--accent); text-shadow: 0 0 15px rgba(0,212,170,0.3); }
+  .stat-value.accent2 { color: var(--accent2); text-shadow: 0 0 15px rgba(124,111,255,0.3); }
+  .stat-value.amber { color: var(--amber); text-shadow: 0 0 15px rgba(255,179,71,0.3); }
+  .stat-value.red { color: var(--accent3); text-shadow: 0 0 15px rgba(255,107,107,0.3); }
+
+  .stat-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 3px;
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .xp-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+
+  .xp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .xp-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text2);
+    font-family: 'Share Tech Mono', monospace;
+  }
+
+  .xp-numbers {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  .xp-bar-track {
+    background: var(--surface2);
+    border-radius: 4px;
+    height: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .xp-bar-fill {
+    height: 100%;
+    background: var(--xp-bar);
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 12px rgba(0,212,170,0.4);
+    position: relative;
+  }
+
+  .xp-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 4px;
+    height: 100%;
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px;
+  }
+
+  .date-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+  }
+
+  .date-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border-bright);
+    color: var(--text2);
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+  }
+
+  .date-btn:hover { background: var(--border-bright); color: var(--text); border-color: var(--accent); }
+
+  .date-display {
+    text-align: center;
+    flex: 1;
+    padding: 0 16px;
+  }
+
+  .date-main {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+
+  .date-main.today { color: var(--accent); }
+
+  .date-sub {
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 1px;
+    font-family: 'Share Tech Mono', monospace;
+    margin-top: 2px;
+  }
+
+  .task-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .task-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .task-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+
+  .task-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    font-weight: 700;
+  }
+
+  .btn-primary:hover { background: #00f5c4; box-shadow: 0 0 15px rgba(0,212,170,0.3); }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: var(--border-bright);
+    color: var(--text2);
+  }
+
+  .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .btn-danger-ghost {
+    background: transparent;
+    border-color: var(--border-bright);
+    color: var(--text3);
+  }
+
+  .btn-danger-ghost:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  .task-input-row {
+    display: flex;
+    gap: 10px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .task-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    padding: 9px 14px;
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .task-input::placeholder { color: var(--text3); }
+  .task-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0,212,170,0.1); }
+
+  .task-list { padding: 8px 0; min-height: 60px; }
+
+  .task-empty {
+    text-align: center;
+    padding: 32px 20px;
+    color: var(--text3);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(30,36,48,0.6);
+    transition: background 0.15s;
+    animation: slideIn 0.25s ease-out;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .task-item:last-child { border-bottom: none; }
+  .task-item:hover { background: rgba(255,255,255,0.02); }
+  .task-item.done { background: rgba(0,212,170,0.03); }
+
+  .task-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    border: 2px solid var(--border-bright);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    background: transparent;
+  }
+
+  .task-item.done .task-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(0,212,170,0.35);
+  }
+
+  .task-check svg { display: none; }
+  .task-item.done .task-check svg { display: block; }
+
+  .task-text {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text);
+    transition: all 0.2s;
+    line-height: 1.4;
+  }
+
+  .task-item.done .task-text {
+    color: var(--text3);
+    text-decoration: line-through;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+  }
+
+  .task-xp-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    background: rgba(0,212,170,0.08);
+    border: 1px solid rgba(0,212,170,0.15);
+    border-radius: 4px;
+    padding: 2px 6px;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    flex-shrink: 0;
+  }
+
+  .task-item.done .task-xp-badge { opacity: 1; }
+
+  .task-del {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .task-del:hover { border-color: var(--accent3); color: var(--accent3); background: rgba(255,107,107,0.08); }
+
+  .completion-bar-wrap {
+    padding: 14px 20px;
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .completion-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .comp-track {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .comp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .comp-pct {
+    font-family: 'Rajdhani', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .history-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .history-header {
+    padding: 12px 20px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .history-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+
+  .history-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--border);
+    border-radius: 6px;
+    padding: 3px;
+  }
+
+  .history-tab {
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--text3);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .history-tab.active {
+    background: var(--surface);
+    color: var(--accent);
+    border: 1px solid rgba(0,212,170,0.2);
+  }
+
+  .history-tab:hover:not(.active) { color: var(--text2); }
+
+  .history-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 16px 20px;
+  }
+
+  .history-day {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    color: var(--text3);
+  }
+
+  .history-day:hover { border-color: var(--accent2); color: var(--text); }
+
+  .history-day.has-tasks {
+    background: rgba(0,212,170,0.08);
+    border-color: rgba(0,212,170,0.2);
+    color: var(--accent);
+  }
+
+  .history-day.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    font-weight: 700;
+    box-shadow: 0 0 12px rgba(0,212,170,0.3);
+  }
+
+  .history-day.today-dot::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  .level-up-banner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    background: var(--surface2);
+    border: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 32px 48px;
+    text-align: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 60px rgba(0,212,170,0.3);
+  }
+
+  .level-up-banner.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .level-up-banner .lv { font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 3px; color: var(--text2); margin-bottom: 8px; }
+  .level-up-banner .lv-num { font-family: 'Rajdhani', sans-serif; font-size: 72px; font-weight: 700; color: var(--accent); line-height: 1; text-shadow: 0 0 30px rgba(0,212,170,0.5); }
+  .level-up-banner .lv-text { font-family: 'Rajdhani', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: 4px; color: var(--text); margin-top: 8px; }
+
+  .xp-float {
+    position: fixed;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-shadow: 0 0 10px rgba(0,212,170,0.5);
+    pointer-events: none;
+    z-index: 999;
+    opacity: 1;
+    transition: transform 1s ease-out, opacity 1s ease-out;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--surface2);
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 1px;
+    z-index: 999;
+    transform: translateY(60px);
+    opacity: 0;
+    transition: all 0.3s;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* BG UNLOCK BADGE */
+  .bg-unlock-btn {
+    background: linear-gradient(135deg, #ffb347, #ff6b6b);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #000;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    box-shadow: 0 0 14px rgba(255,179,71,0.3);
+    display: none;
+  }
+  .bg-unlock-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,179,71,0.5); }
+  .bg-unlock-btn.visible { display: block; }
+
+  .unlock-banner {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.5);
+    background: var(--surface2);
+    border: 2px solid var(--amber);
+    border-radius: 16px;
+    padding: 28px 40px;
+    text-align: center;
+    z-index: 1001;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 60px rgba(255,179,71,0.3);
+    max-width: 340px;
+    width: 90%;
+  }
+  .unlock-banner.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .unlock-banner .ul-icon { font-size: 40px; margin-bottom: 10px; }
+  .unlock-banner .ul-title { font-family: 'Rajdhani', sans-serif; font-size: 22px; font-weight: 700; color: var(--amber); letter-spacing: 3px; margin-bottom: 6px; }
+  .unlock-banner .ul-desc { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text2); letter-spacing: 1px; line-height: 1.6; }
+
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 1002;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 14px;
+    padding: 24px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .modal-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  .modal-close {
+    background: transparent;
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    color: var(--text2);
+    cursor: pointer;
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+  .modal-close:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  .modal-section-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .bg-themes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .bg-theme-btn {
+    border-radius: 8px;
+    height: 62px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+    display: flex;
+    align-items: flex-end;
+    padding: 6px;
+  }
+  .bg-theme-btn:hover { transform: scale(1.04); }
+  .bg-theme-btn.selected { border-color: var(--amber); box-shadow: 0 0 14px rgba(255,179,71,0.35); }
+  .bg-theme-btn span {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.85);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .color-section { margin-bottom: 20px; }
+
+  .color-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .color-row label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;
+    color: var(--text2);
+    letter-spacing: 1px;
+    min-width: 80px;
+    text-transform: uppercase;
+  }
+
+  .color-row input[type=color] {
+    width: 36px; height: 28px;
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    background: none;
+    cursor: pointer;
+    padding: 2px;
+  }
+
+  .color-row .color-preview {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    opacity: 0.6;
+  }
+
+  .modal-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 480px) {
+    .logo { font-size: 16px; }
+    .task-actions { gap: 6px; }
+    .btn { padding: 5px 10px; font-size: 10px; }
+    header { padding: 14px 0 12px; }
+    .bg-themes { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<div id="unlockBanner" class="unlock-banner">
+  <div class="ul-icon">🎨</div>
+  <div class="ul-title">REWARD UNLOCKED</div>
+  <div class="ul-desc">67-day streak achieved!<br>Background customization is now available.</div>
+</div>
+
+<div id="bgModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🎨 Customize Background</div>
+      <button class="modal-close" onclick="closeBgModal()">✕</button>
+    </div>
+    <div class="modal-section-label">Preset Themes</div>
+    <div class="bg-themes" id="bgThemes"></div>
+    <div class="color-section">
+      <div class="modal-section-label">Custom Colors</div>
+      <div class="color-row">
+        <label>Background</label>
+        <input type="color" id="colorBg" value="#0a0c10" oninput="applyCustomColor()">
+        <div class="color-preview" id="previewBg" style="background:#0a0c10"></div>
+      </div>
+      <div class="color-row">
+        <label>Accent</label>
+        <input type="color" id="colorAccent" value="#00d4aa" oninput="applyCustomColor()">
+        <div class="color-preview" id="previewAccent" style="background:#00d4aa"></div>
+      </div>
+      <div class="color-row">
+        <label>Accent 2</label>
+        <input type="color" id="colorAccent2" value="#7c6fff" oninput="applyCustomColor()">
+        <div class="color-preview" id="previewAccent2" style="background:#7c6fff"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger-ghost" onclick="resetBg()">Reset</button>
+      <button class="btn btn-primary" onclick="closeBgModal()">Apply</button>
+    </div>
+  </div>
+</div>
+
+<div id="levelUpBanner" class="level-up-banner">
+  <div class="lv">LEVEL UP</div>
+  <div class="lv-num" id="newLevelNum">2</div>
+  <div class="lv-text">RANK ACHIEVED</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="container">
+  <header>
+    <div class="logo">Life <span>//</span> RPG</div>
+    <div class="header-right">
+      <button class="bg-unlock-btn" id="bgUnlockBtn" onclick="openBgModal()">🎨 Customize</button>
+      <div class="level-badge" id="headerLevel">LVL 1</div>
+    </div>
+  </header>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Total XP</div>
+      <div class="stat-value accent" id="statXP">0</div>
+      <div class="stat-sub">experience points</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Level</div>
+      <div class="stat-value accent2" id="statLevel">1</div>
+      <div class="stat-sub">current rank</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Streak</div>
+      <div class="stat-value amber" id="statStreak">0 🔥</div>
+      <div class="stat-sub">best: <span id="bestStreak">0</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Avg Score</div>
+      <div class="stat-value red" id="statAvg">0%</div>
+      <div class="stat-sub">daily completion</div>
+    </div>
+  </div>
+
+  <div class="xp-section">
+    <div class="xp-header">
+      <span class="xp-label">XP to Next Level</span>
+      <span class="xp-numbers" id="xpNumbers">0 / 100 XP</span>
+    </div>
+    <div class="xp-bar-track">
+      <div class="xp-bar-fill" id="xpBarFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="date-nav">
+    <button class="date-btn" onclick="changeDate(-1)">&#8592; PREV</button>
+    <div class="date-display">
+      <div class="date-main" id="dateMain">Today</div>
+      <div class="date-sub" id="dateSub"></div>
+    </div>
+    <button class="date-btn" onclick="changeDate(1)">NEXT &#8594;</button>
+  </div>
+
+  <div class="task-section">
+    <div class="task-header">
+      <div class="task-title">&#9670; Mission Log</div>
+      <div class="task-actions">
+        <button class="btn btn-ghost" onclick="copyYesterday()">&#8645; Copy Yesterday</button>
+        <button class="btn btn-danger-ghost" onclick="clearToday()">&#9003; Clear Day</button>
+      </div>
+    </div>
+    <div class="task-input-row">
+      <input type="text" class="task-input" id="taskInput" placeholder="Add a new mission..." maxlength="120" onkeydown="handleKey(event)">
+      <button class="btn btn-primary" onclick="addTask()">+ ADD</button>
+    </div>
+    <div class="task-list" id="taskList"></div>
+    <div class="completion-bar-wrap">
+      <span class="completion-label">COMPLETION</span>
+      <div class="comp-track"><div class="comp-fill" id="compFill" style="width:0%"></div></div>
+      <span class="comp-pct" id="compPct">0%</span>
+    </div>
+  </div>
+
+  <div class="history-section">
+    <div class="history-header">
+      <div class="history-title">&#9670; Activity Log</div>
+      <div class="history-tabs">
+        <button class="history-tab active" id="tabWeek" onclick="setHistoryView('week')">This Week</button>
+        <button class="history-tab" id="tabAll" onclick="setHistoryView('all')">All Time</button>
+      </div>
+    </div>
+    <div class="history-grid" id="historyGrid"></div>
+  </div>
+</div>
+
+<script>
+  const S = {
+    get: k => { try { return JSON.parse(localStorage.getItem('lrpg_' + k)); } catch { return null; } },
+    set: (k, v) => localStorage.setItem('lrpg_' + k, JSON.stringify(v)),
+    getStr: k => localStorage.getItem('lrpg_' + k) || '',
+    setStr: (k, v) => localStorage.setItem('lrpg_' + k, v)
+  };
+
+  function dateKey(d) {
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function todayKey() { return dateKey(new Date()); }
+
+  function offsetDate(base, offset) {
+    const d = new Date(base + 'T12:00:00');
+    d.setDate(d.getDate() + offset);
+    return dateKey(d);
+  }
+
+  let currentDate = todayKey();
+  let previousLevel = null;
+
+  function getTasks(key) { return S.get('tasks_' + key) || []; }
+  function setTasks(key, tasks) { S.set('tasks_' + key, tasks); }
+
+  function getStats() {
+    return S.get('stats') || { totalXP: 0, streak: 0, bestStreak: 0, lastActiveDate: null };
+  }
+
+  function setStats(s) { S.set('stats', s); }
+
+  function calcXPAndLevel(totalXP) {
+    const level = Math.max(1, Math.floor(totalXP / 100) + 1);
+    const xpInLevel = totalXP % 100;
+    return { level, xpInLevel };
+  }
+
+  function recalcTotalXP() {
+    const keys = Object.keys(localStorage).filter(k => k.startsWith('lrpg_tasks_'));
+    let total = 0;
+    keys.forEach(k => {
+      const tasks = JSON.parse(localStorage.getItem(k)) || [];
+      total += tasks.filter(t => t.done).length * 10;
+    });
+    return total;
+  }
+
+  function calcStreak() {
+    let streak = 0;
+    let d = new Date(todayKey() + 'T12:00:00');
+    for (let i = 0; i < 365; i++) {
+      const k = dateKey(d);
+      const tasks = getTasks(k);
+      if (tasks.some(t => t.done)) {
+        streak++;
+        d.setDate(d.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+    return streak;
+  }
+
+  function calcAvgCompletion() {
+    const keys = Object.keys(localStorage).filter(k => k.startsWith('lrpg_tasks_'));
+    if (!keys.length) return 0;
+    let total = 0;
+    keys.forEach(k => {
+      const tasks = JSON.parse(localStorage.getItem(k)) || [];
+      if (!tasks.length) return;
+      const pct = tasks.filter(t => t.done).length / tasks.length * 100;
+      total += pct;
+    });
+    return Math.round(total / keys.length);
+  }
+
+  function updateStats() {
+    const totalXP = recalcTotalXP();
+    const { level, xpInLevel } = calcXPAndLevel(totalXP);
+    const streak = calcStreak();
+    const stats = getStats();
+    const bestStreak = Math.max(stats.bestStreak || 0, streak);
+    setStats({ totalXP, streak, bestStreak, lastActiveDate: todayKey() });
+
+    document.getElementById('statXP').textContent = totalXP.toLocaleString();
+    document.getElementById('statLevel').textContent = level;
+    document.getElementById('statStreak').textContent = streak + ' 🔥';
+    document.getElementById('bestStreak').textContent = bestStreak;
+    document.getElementById('statAvg').textContent = calcAvgCompletion() + '%';
+    document.getElementById('headerLevel').textContent = 'LVL ' + level;
+    document.getElementById('xpNumbers').textContent = xpInLevel + ' / 100 XP';
+    document.getElementById('xpBarFill').style.width = xpInLevel + '%';
+
+    if (previousLevel !== null && level > previousLevel) {
+      showLevelUp(level);
+    }
+    previousLevel = level;
+    checkBgUnlock(streak);
+  }
+
+  function renderTasks() {
+    const tasks = getTasks(currentDate);
+    const list = document.getElementById('taskList');
+    const done = tasks.filter(t => t.done).length;
+    const total = tasks.length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+
+    document.getElementById('compFill').style.width = pct + '%';
+    document.getElementById('compPct').textContent = pct + '%';
+
+    if (!tasks.length) {
+      list.innerHTML = '<div class="task-empty">[ NO MISSIONS LOGGED ]</div>';
+      return;
+    }
+
+    list.innerHTML = tasks.map((t, i) => `
+      <div class="task-item ${t.done ? 'done' : ''}" id="task-${i}">
+        <div class="task-check" onclick="toggleTask(${i})">
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+            <path d="M1 5L4.5 8.5L11 1" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="task-text">${escapeHtml(t.text)}</div>
+        <div class="task-xp-badge">+10 XP</div>
+        <button class="task-del" onclick="deleteTask(${i})">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function updateDateDisplay() {
+    const today = todayKey();
+    const el = document.getElementById('dateMain');
+    const sub = document.getElementById('dateSub');
+    const d = new Date(currentDate + 'T12:00:00');
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    if (currentDate === today) {
+      el.textContent = 'Today';
+      el.className = 'date-main today';
+      sub.textContent = days[d.getDay()] + ' · ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    } else {
+      el.textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate();
+      el.className = 'date-main';
+      sub.textContent = d.getFullYear() + (currentDate < today ? ' · PAST LOG' : ' · FUTURE LOG');
+    }
+  }
+
+  let historyView = 'week';
+
+  function setHistoryView(v) {
+    historyView = v;
+    document.getElementById('tabWeek').className = 'history-tab' + (v === 'week' ? ' active' : '');
+    document.getElementById('tabAll').className = 'history-tab' + (v === 'all' ? ' active' : '');
+    renderHistory();
+  }
+
+  function renderHistory() {
+    const grid = document.getElementById('historyGrid');
+    const today = todayKey();
+    const days = historyView === 'week' ? 7 : 365;
+    let html = '';
+    for (let i = days - 1; i >= 0; i--) {
+      const d = new Date(today + 'T12:00:00');
+      d.setDate(d.getDate() - i);
+      const k = dateKey(d);
+      const tasks = getTasks(k);
+      const hasTasks = tasks.some(t => t.done);
+      const isActive = k === currentDate;
+      const isToday = k === today;
+      const day = d.getDate();
+      let cls = 'history-day';
+      if (hasTasks) cls += ' has-tasks';
+      if (isActive) cls += ' active';
+      if (isToday && !isActive) cls += ' today-dot';
+      const label = historyView === 'all' ? day : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
+      html += `<div class="${cls}" onclick="jumpToDate('${k}')" title="${k}" style="${historyView === 'week' ? 'flex:1;min-width:36px;height:44px;font-size:11px;flex-direction:column;gap:2px;' : ''}">${historyView === 'week' ? `<span style="font-size:9px;color:inherit;opacity:0.6">${label}</span><span>${day}</span>` : day}</div>`;
+    }
+    grid.innerHTML = html;
+  }
+
+  function changeDate(offset) {
+    currentDate = offsetDate(currentDate, offset);
+    updateDateDisplay();
+    renderTasks();
+    renderHistory();
+  }
+
+  function jumpToDate(key) {
+    currentDate = key;
+    updateDateDisplay();
+    renderTasks();
+    renderHistory();
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter') addTask();
+  }
+
+  function addTask() {
+    const input = document.getElementById('taskInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const tasks = getTasks(currentDate);
+    tasks.push({ text, done: false, id: Date.now() });
+    setTasks(currentDate, tasks);
+    input.value = '';
+    renderTasks();
+    updateStats();
+    renderHistory();
+  }
+
+  function toggleTask(idx) {
+    const tasks = getTasks(currentDate);
+    const wasUndone = !tasks[idx].done;
+    tasks[idx].done = !tasks[idx].done;
+    setTasks(currentDate, tasks);
+    if (wasUndone) showXPFloat('+10 XP');
+    renderTasks();
+    updateStats();
+    renderHistory();
+  }
+
+  function deleteTask(idx) {
+    const tasks = getTasks(currentDate);
+    tasks.splice(idx, 1);
+    setTasks(currentDate, tasks);
+    renderTasks();
+    updateStats();
+    renderHistory();
+  }
+
+  function clearToday() {
+    if (!confirm('Clear all tasks for this day?')) return;
+    setTasks(currentDate, []);
+    renderTasks();
+    updateStats();
+    renderHistory();
+  }
+
+  function copyYesterday() {
+    const yesterday = offsetDate(currentDate, -1);
+    const yTasks = getTasks(yesterday);
+    if (!yTasks.length) { showToast('No tasks found in previous day'); return; }
+    const existing = getTasks(currentDate);
+    const existingTexts = new Set(existing.map(t => t.text));
+    const toAdd = yTasks.filter(t => !existingTexts.has(t.text)).map(t => ({ text: t.text, done: false, id: Date.now() + Math.random() }));
+    if (!toAdd.length) { showToast('Tasks already copied'); return; }
+    setTasks(currentDate, [...existing, ...toAdd]);
+    renderTasks();
+    updateStats();
+    showToast(`Copied ${toAdd.length} mission${toAdd.length > 1 ? 's' : ''}`);
+  }
+
+  function showXPFloat(text) {
+    const el = document.createElement('div');
+    el.className = 'xp-float';
+    el.textContent = text;
+    const x = window.innerWidth * 0.5 + (Math.random() * 100 - 50);
+    const y = window.innerHeight * 0.5;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    document.body.appendChild(el);
+    requestAnimationFrame(() => {
+      el.style.transform = 'translateY(-60px)';
+      el.style.opacity = '0';
+    });
+    setTimeout(() => el.remove(), 1100);
+  }
+
+  function showLevelUp(level) {
+    document.getElementById('newLevelNum').textContent = level;
+    const banner = document.getElementById('levelUpBanner');
+    banner.classList.add('show');
+    setTimeout(() => banner.classList.remove('show'), 2600);
+  }
+
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  // BACKGROUND CUSTOMIZATION
+  const BG_THEMES = [
+    { id: 'default',  name: 'Default',  bg: '#0a0c10', surface: '#111318', surface2: '#181c24', border: '#1e2430', borderBright: '#2a3445', accent: '#00d4aa', accent2: '#7c6fff', style: 'background:#0a0c10' },
+    { id: 'midnight', name: 'Midnight', bg: '#06060f', surface: '#0d0d1a', surface2: '#13132a', border: '#1a1a35', borderBright: '#252550', accent: '#a78bfa', accent2: '#60a5fa', style: 'background:linear-gradient(135deg,#06060f,#0d0818)' },
+    { id: 'forest',   name: 'Forest',   bg: '#060e08', surface: '#0c1610', surface2: '#111f15', border: '#172615', borderBright: '#1e3320', accent: '#4ade80', accent2: '#a3e635', style: 'background:linear-gradient(135deg,#060e08,#0a1a0c)' },
+    { id: 'crimson',  name: 'Crimson',  bg: '#0f0608', surface: '#1a0c0e', surface2: '#221014', border: '#2e1218', borderBright: '#3d1820', accent: '#f87171', accent2: '#fb923c', style: 'background:linear-gradient(135deg,#0f0608,#180a0c)' },
+    { id: 'ocean',    name: 'Ocean',    bg: '#020c14', surface: '#071524', surface2: '#0c1e30', border: '#0f2840', borderBright: '#163650', accent: '#38bdf8', accent2: '#22d3ee', style: 'background:linear-gradient(135deg,#020c14,#050f1c)' },
+    { id: 'gold',     name: 'Gold',     bg: '#0e0a02', surface: '#1a1404', surface2: '#231c06', border: '#2e2508', borderBright: '#3d3210', accent: '#fbbf24', accent2: '#f59e0b', style: 'background:linear-gradient(135deg,#0e0a02,#160e02)' },
+  ];
+
+  function renderBgThemes() {
+    const saved = localStorage.getItem('lrpg_bgTheme') || 'default';
+    document.getElementById('bgThemes').innerHTML = BG_THEMES.map(t => `
+      <button class="bg-theme-btn ${saved === t.id ? 'selected' : ''}" style="${t.style}" onclick="selectTheme('${t.id}')">
+        <span>${t.name}</span>
+      </button>
+    `).join('');
+  }
+
+  function selectTheme(id) {
+    const t = BG_THEMES.find(x => x.id === id);
+    if (!t) return;
+    localStorage.setItem('lrpg_bgTheme', id);
+    applyTheme(t.bg, t.surface, t.surface2, t.border, t.borderBright, t.accent, t.accent2);
+    document.getElementById('colorBg').value = t.bg;
+    document.getElementById('colorAccent').value = t.accent;
+    document.getElementById('colorAccent2').value = t.accent2;
+    document.getElementById('previewBg').style.background = t.bg;
+    document.getElementById('previewAccent').style.background = t.accent;
+    document.getElementById('previewAccent2').style.background = t.accent2;
+    localStorage.removeItem('lrpg_customColors');
+    renderBgThemes();
+  }
+
+  function applyTheme(bg, surface, surface2, border, borderBright, accent, accent2) {
+    const r = document.documentElement.style;
+    r.setProperty('--bg', bg);
+    r.setProperty('--surface', surface);
+    r.setProperty('--surface2', surface2);
+    r.setProperty('--border', border);
+    r.setProperty('--border-bright', borderBright);
+    r.setProperty('--accent', accent);
+    r.setProperty('--accent2', accent2);
+    r.setProperty('--xp-bar', `linear-gradient(90deg, ${accent}, ${accent2})`);
+    document.body.style.background = bg;
+  }
+
+  function applyCustomColor() {
+    const bg = document.getElementById('colorBg').value;
+    const accent = document.getElementById('colorAccent').value;
+    const accent2 = document.getElementById('colorAccent2').value;
+    document.getElementById('previewBg').style.background = bg;
+    document.getElementById('previewAccent').style.background = accent;
+    document.getElementById('previewAccent2').style.background = accent2;
+    const r = document.documentElement.style;
+    r.setProperty('--bg', bg);
+    r.setProperty('--accent', accent);
+    r.setProperty('--accent2', accent2);
+    r.setProperty('--xp-bar', `linear-gradient(90deg, ${accent}, ${accent2})`);
+    document.body.style.background = bg;
+    localStorage.setItem('lrpg_customColors', JSON.stringify({ bg, accent, accent2 }));
+    localStorage.removeItem('lrpg_bgTheme');
+    renderBgThemes();
+  }
+
+  function resetBg() {
+    localStorage.removeItem('lrpg_bgTheme');
+    localStorage.removeItem('lrpg_customColors');
+    selectTheme('default');
+  }
+
+  function openBgModal() {
+    renderBgThemes();
+    document.getElementById('bgModal').classList.add('open');
+  }
+
+  function closeBgModal() {
+    document.getElementById('bgModal').classList.remove('open');
+  }
+
+  document.getElementById('bgModal').addEventListener('click', function(e) {
+    if (e.target === this) closeBgModal();
+  });
+
+  function checkBgUnlock(streak) {
+    const btn = document.getElementById('bgUnlockBtn');
+    const wasLocked = localStorage.getItem('lrpg_bgUnlocked') !== '1';
+    if (streak >= 67) {
+      btn.classList.add('visible');
+      if (wasLocked) {
+        localStorage.setItem('lrpg_bgUnlocked', '1');
+        const banner = document.getElementById('unlockBanner');
+        banner.classList.add('show');
+        setTimeout(() => banner.classList.remove('show'), 3500);
+      }
+    } else {
+      btn.classList.remove('visible');
+    }
+  }
+
+  function loadSavedTheme() {
+    const custom = localStorage.getItem('lrpg_customColors');
+    if (custom) {
+      try {
+        const { bg, accent, accent2 } = JSON.parse(custom);
+        document.getElementById('colorBg').value = bg;
+        document.getElementById('colorAccent').value = accent;
+        document.getElementById('colorAccent2').value = accent2;
+        document.getElementById('previewBg').style.background = bg;
+        document.getElementById('previewAccent').style.background = accent;
+        document.getElementById('previewAccent2').style.background = accent2;
+        const r = document.documentElement.style;
+        r.setProperty('--bg', bg); r.setProperty('--accent', accent); r.setProperty('--accent2', accent2);
+        r.setProperty('--xp-bar', `linear-gradient(90deg, ${accent}, ${accent2})`);
+        document.body.style.background = bg;
+      } catch {}
+      return;
+    }
+    const saved = localStorage.getItem('lrpg_bgTheme');
+    if (saved && saved !== 'default') {
+      const t = BG_THEMES.find(x => x.id === saved);
+      if (t) applyTheme(t.bg, t.surface, t.surface2, t.border, t.borderBright, t.accent, t.accent2);
+    }
+    if (localStorage.getItem('lrpg_bgUnlocked') === '1') {
+      document.getElementById('bgUnlockBtn').classList.add('visible');
+    }
+  }
+
+  loadSavedTheme();
+
+  // INIT
+  previousLevel = calcXPAndLevel(recalcTotalXP()).level;
+  updateDateDisplay();
+  renderTasks();
+  updateStats();
+  renderHistory();
+</script>
+</body>
+</html>

@@ -999,7 +999,11 @@
     const wasUndone = !tasks[idx].done;
     pushUndo();
     tasks[idx].done = !tasks[idx].done;
-    setTasks(currentDate, tasks);
+    // Move completed tasks to bottom, uncompleted back to before completed ones
+    const undone = tasks.filter(t => !t.done);
+    const done = tasks.filter(t => t.done);
+    const sorted = [...undone, ...done];
+    setTasks(currentDate, sorted);
     if (wasUndone) {
       const baseXP = XP_MAP[tasks[idx].difficulty || 'medium'] || 10;
       const streak = calcStreak();

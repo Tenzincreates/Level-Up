@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,9 @@
   <title>LevelUp</title>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    /* =============================================
+       CSS VARIABLE SYSTEM — DARK MODE (default)
+       ============================================= */
     :root {
       --bg: #0a0c10;
       --surface: #111318;
@@ -28,9 +32,36 @@
       --text2: #8892a4;
       --text3: #4a5568;
       --xp-bar: linear-gradient(90deg, #00d4aa, #7c6fff);
+      /* Light mode overrides via [data-theme="light"] */
     }
+    [data-theme="light"] {
+      --bg: #f0f2f7;
+      --surface: #ffffff;
+      --surface2: #e8ecf4;
+      --border: #d0d7e6;
+      --border-bright: #b0bbd0;
+      --accent: #009b7d;
+      --accent2: #5a4db5;
+      --accent3: #e0504f;
+      --amber: #d48c20;
+      --text: #1a1e2e;
+      --text2: #445066;
+      --text3: #8090aa;
+      --xp-bar: linear-gradient(90deg, #009b7d, #5a4db5);
+    }
+    [data-theme="light"] body::before {
+      background: radial-gradient(ellipse at 20% 20%, rgba(0,155,125,0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 80%, rgba(90,77,181,0.06) 0%, transparent 50%);
+    }
+    [data-theme="light"] .scanlines { display: none; }
+    [data-theme="light"] .logo { text-shadow: 0 0 12px rgba(0,155,125,0.3); }
+    [data-theme="light"] .task-item:hover { background: rgba(0,0,0,0.02); }
+    [data-theme="light"] .task-item.done { background: rgba(0,155,125,0.04); }
+    [data-theme="light"] .xp-bar-fill { box-shadow: 0 0 8px rgba(0,155,125,0.25); }
+    [data-theme="light"] .weekly-day-bar { background: linear-gradient(180deg, var(--accent2), var(--accent)); }
+    [data-theme="light"] .weekly-day-bar.today-bar { box-shadow: 0 0 8px rgba(0,155,125,0.2); }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Exo 2', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+    body { font-family: 'Exo 2', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
     body::before {
       content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: radial-gradient(ellipse at 20% 20%, rgba(0,212,170,0.04) 0%, transparent 50%),
@@ -86,21 +117,36 @@
     .task-actions { display: flex; gap: 8px; flex-wrap: wrap; }
     .btn { padding: 6px 14px; border-radius: 6px; border: 1px solid; cursor: pointer; font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 1px; transition: all 0.2s; text-transform: uppercase; font-weight: 500; }
     .btn-primary { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; }
-    .btn-primary:hover { background: #00f5c4; box-shadow: 0 0 15px rgba(0,212,170,0.3); }
+    .btn-primary:hover { filter: brightness(1.15); box-shadow: 0 0 15px rgba(0,212,170,0.3); }
     .btn-ghost { background: transparent; border-color: var(--border-bright); color: var(--text2); }
     .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
     .btn-danger-ghost { background: transparent; border-color: var(--border-bright); color: var(--text3); }
     .btn-danger-ghost:hover { border-color: var(--accent3); color: var(--accent3); }
     .btn-amber { background: transparent; border-color: rgba(255,179,71,0.3); color: var(--amber); }
     .btn-amber:hover { border-color: var(--amber); background: rgba(255,179,71,0.08); }
+    .btn-settings { background: transparent; border: 1px solid var(--border-bright); color: var(--text2); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 1px; transition: all 0.2s; }
+    .btn-settings:hover { border-color: var(--accent); color: var(--accent); }
+    /* =============================================
+       TASK INPUT
+       ============================================= */
     .task-input-area { padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
     .task-input-row { display: flex; gap: 10px; }
     .task-input { flex: 1; background: var(--surface2); border: 1px solid var(--border-bright); border-radius: 6px; padding: 9px 14px; color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
     .task-input::placeholder { color: var(--text3); }
     .task-input:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0,212,170,0.1); }
-    .task-meta-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .task-meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .select-styled { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: 6px; color: var(--text2); font-family: 'Share Tech Mono', monospace; font-size: 10px; padding: 7px 10px; cursor: pointer; outline: none; letter-spacing: 1px; transition: border-color 0.2s; appearance: none; -webkit-appearance: none; }
     .select-styled:hover, .select-styled:focus { border-color: var(--accent); color: var(--text); }
+    /* New task flash highlight */
+    @keyframes neonPop {
+      0%   { box-shadow: 0 0 0px rgba(0,212,170,0); background: rgba(0,212,170,0.18); border-color: var(--accent); }
+      40%  { box-shadow: 0 0 22px rgba(0,212,170,0.55), inset 0 0 12px rgba(0,212,170,0.12); }
+      100% { box-shadow: none; background: transparent; border-color: transparent; }
+    }
+    .task-item.new-flash { animation: neonPop 1.1s ease-out forwards !important; }
+    /* =============================================
+       TASK LIST
+       ============================================= */
     .task-list { padding: 8px 0; min-height: 60px; }
     .task-empty { text-align: center; padding: 32px 20px; color: var(--text3); font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 2px; }
     .task-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 20px; border-bottom: 1px solid rgba(30,36,48,0.6); transition: background 0.15s; animation: slideIn 0.25s ease-out; position: relative; }
@@ -111,6 +157,7 @@
     .task-item.drag-over-top { border-top: 2px solid var(--accent) !important; }
     .task-item.drag-over-bot { border-bottom: 2px solid var(--accent) !important; }
     .task-item.dragging { opacity: 0.35; }
+    .task-item.editing-mode { background: rgba(124,111,255,0.06); border-left: 2px solid var(--accent2); }
     .drag-handle { color: var(--text3); cursor: grab; flex-shrink: 0; opacity: 0; transition: opacity 0.2s; user-select: none; display: flex; flex-direction: column; gap: 2px; padding: 2px; }
     .drag-handle span { display: block; width: 14px; height: 2px; background: currentColor; border-radius: 1px; }
     .task-item:hover .drag-handle { opacity: 1; }
@@ -120,18 +167,34 @@
     .task-item.done .task-check svg { display: block; }
     .task-text { flex: 1; font-size: 14px; color: var(--text); transition: all 0.2s; line-height: 1.4; min-width: 0; word-break: break-word; }
     .task-item.done .task-text { color: var(--text3); text-decoration: line-through; text-decoration-color: var(--accent); text-decoration-thickness: 1px; }
+    .task-edit-input { flex: 1; background: var(--surface2); border: 1px solid var(--accent2); border-radius: 5px; padding: 4px 10px; color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 13px; outline: none; min-width: 0; }
+    /* =============================================
+       CATEGORY PILL TAGS (glowing)
+       ============================================= */
     .task-badges { display: flex; gap: 5px; align-items: center; flex-shrink: 0; flex-wrap: wrap; }
-    .badge { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; border: 1px solid; flex-shrink: 0; }
-    .badge-easy { color: #4ade80; border-color: rgba(74,222,128,0.25); background: rgba(74,222,128,0.07); }
-    .badge-medium { color: var(--amber); border-color: rgba(255,179,71,0.25); background: rgba(255,179,71,0.07); }
-    .badge-hard { color: var(--accent3); border-color: rgba(255,107,107,0.25); background: rgba(255,107,107,0.07); }
-    .badge-health { color: #4ade80; border-color: rgba(74,222,128,0.2); background: rgba(74,222,128,0.06); }
-    .badge-work { color: #60a5fa; border-color: rgba(96,165,250,0.2); background: rgba(96,165,250,0.06); }
-    .badge-personal { color: #f472b6; border-color: rgba(244,114,182,0.2); background: rgba(244,114,182,0.06); }
-    .badge-fitness { color: #fb923c; border-color: rgba(251,146,60,0.2); background: rgba(251,146,60,0.06); }
-    .badge-other { color: #a78bfa; border-color: rgba(167,139,250,0.2); background: rgba(167,139,250,0.06); }
+    .badge { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; border: 1px solid; flex-shrink: 0; transition: box-shadow 0.2s; }
+    .badge-easy { color: #4ade80; border-color: rgba(74,222,128,0.35); background: rgba(74,222,128,0.07); }
+    .badge-medium { color: var(--amber); border-color: rgba(255,179,71,0.35); background: rgba(255,179,71,0.07); }
+    .badge-hard { color: var(--accent3); border-color: rgba(255,107,107,0.35); background: rgba(255,107,107,0.07); }
+    /* Category pills — glowing RPG style */
+    .category-health { color: #4ade80; border-color: rgba(74,222,128,0.5); background: rgba(74,222,128,0.1); box-shadow: 0 0 8px rgba(74,222,128,0.2); }
+    .category-work { color: #60a5fa; border-color: rgba(96,165,250,0.5); background: rgba(96,165,250,0.1); box-shadow: 0 0 8px rgba(96,165,250,0.2); }
+    .category-personal { color: #f472b6; border-color: rgba(244,114,182,0.5); background: rgba(244,114,182,0.1); box-shadow: 0 0 8px rgba(244,114,182,0.2); }
+    .category-fitness { color: #fb923c; border-color: rgba(251,146,60,0.5); background: rgba(251,146,60,0.1); box-shadow: 0 0 8px rgba(251,146,60,0.2); }
+    .category-other { color: #a78bfa; border-color: rgba(167,139,250,0.5); background: rgba(167,139,250,0.1); box-shadow: 0 0 8px rgba(167,139,250,0.2); }
+    .task-item:hover .category-health { box-shadow: 0 0 14px rgba(74,222,128,0.35); }
+    .task-item:hover .category-work { box-shadow: 0 0 14px rgba(96,165,250,0.35); }
+    .task-item:hover .category-personal { box-shadow: 0 0 14px rgba(244,114,182,0.35); }
+    .task-item:hover .category-fitness { box-shadow: 0 0 14px rgba(251,146,60,0.35); }
+    .task-item:hover .category-other { box-shadow: 0 0 14px rgba(167,139,250,0.35); }
+
     .xp-badge { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--accent); background: rgba(0,212,170,0.08); border: 1px solid rgba(0,212,170,0.15); border-radius: 4px; padding: 2px 6px; letter-spacing: 1px; opacity: 0; transition: opacity 0.3s; flex-shrink: 0; }
     .task-item.done .xp-badge { opacity: 1; }
+    /* Task action buttons */
+    .task-edit-btn { width: 24px; height: 24px; border-radius: 4px; border: 1px solid transparent; background: transparent; color: var(--text3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; font-size: 11px; }
+    .task-edit-btn:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(124,111,255,0.08); }
+    .task-undo-btn { width: 24px; height: 24px; border-radius: 4px; border: 1px solid transparent; background: transparent; color: var(--text3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; font-size: 11px; }
+    .task-undo-btn:hover { border-color: var(--amber); color: var(--amber); background: rgba(255,179,71,0.08); }
     .task-del { width: 24px; height: 24px; border-radius: 4px; border: 1px solid transparent; background: transparent; color: var(--text3); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
     .task-del:hover { border-color: var(--accent3); color: var(--accent3); background: rgba(255,107,107,0.08); }
     .completion-bar-wrap { padding: 14px 20px; background: var(--surface2); border-top: 1px solid var(--border); display: flex; align-items: center; gap: 14px; }
@@ -139,6 +202,9 @@
     .comp-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
     .comp-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 3px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
     .comp-pct { font-family: 'Rajdhani', monospace; font-size: 14px; font-weight: 700; color: var(--accent); min-width: 36px; text-align: right; }
+    /* =============================================
+       WEEKLY SUMMARY
+       ============================================= */
     .weekly-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
     .weekly-header { padding: 14px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .weekly-title { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text2); }
@@ -158,6 +224,9 @@
     .weekly-day-bar.today-bar { background: linear-gradient(180deg, #00f5c4, var(--accent)); box-shadow: 0 0 10px rgba(0,212,170,0.3); }
     .weekly-day-num { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text3); }
     .weekly-best-day { margin-top: 14px; padding: 10px 14px; background: rgba(0,212,170,0.06); border: 1px solid rgba(0,212,170,0.15); border-radius: 8px; font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 1px; text-align: center; }
+    /* =============================================
+       ACTIVITY LOG — FIXED ORDERING
+       ============================================= */
     .history-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
     .history-header { padding: 12px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .history-title { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text2); }
@@ -171,12 +240,47 @@
     .history-day.has-tasks { background: rgba(0,212,170,0.08); border-color: rgba(0,212,170,0.2); color: var(--accent); }
     .history-day.active { background: var(--accent); border-color: var(--accent); color: #000; font-weight: 700; box-shadow: 0 0 12px rgba(0,212,170,0.3); }
     .history-day.today-dot::after { content: ''; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--amber); }
+    .history-week-row { display: flex; gap: 6px; width: 100%; flex-wrap: nowrap; }
+    .history-week-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--text3); letter-spacing: 1px; text-transform: uppercase; width: 100%; margin-top: 4px; margin-bottom: 2px; padding-left: 2px; }
+    /* =============================================
+       SYSTEM INSIGHTS
+       ============================================= */
+    .insights-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+    .insights-header { padding: 14px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .insights-title { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text2); }
+    .insights-refresh { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text3); letter-spacing: 1px; cursor: pointer; border: 1px solid var(--border-bright); background: transparent; border-radius: 5px; padding: 4px 10px; transition: all 0.2s; }
+    .insights-refresh:hover { color: var(--accent); border-color: var(--accent); }
+    .insights-body { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media(max-width:600px) { .insights-body { grid-template-columns: 1fr; } }
+    .insight-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; position: relative; overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
+    .insight-card:hover { border-color: var(--border-bright); transform: translateY(-1px); }
+    .insight-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 2px; }
+    .insight-card.ic-brain::before { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+    .insight-card.ic-trend::before { background: linear-gradient(90deg, #4ade80, var(--accent)); }
+    .insight-card.ic-category::before { background: linear-gradient(90deg, #f472b6, var(--accent2)); }
+    .insight-card.ic-time::before { background: linear-gradient(90deg, var(--amber), var(--accent3)); }
+    .insight-icon { font-size: 18px; margin-bottom: 8px; display: block; }
+    .insight-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+    .insight-value { font-family: 'Rajdhani', sans-serif; font-size: 17px; font-weight: 600; color: var(--text); line-height: 1.3; margin-bottom: 4px; }
+    .insight-value.positive { color: var(--accent); }
+    .insight-value.negative { color: var(--accent3); }
+    .insight-value.neutral { color: var(--amber); }
+    .insight-sub { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text3); letter-spacing: 1px; line-height: 1.6; }
+    .insights-empty { padding: 28px 20px; text-align: center; font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: 1px; }
+    /* Streak multiplier hint */
+    .streak-multiplier { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--accent2); background: rgba(124,111,255,0.08); border: 1px solid rgba(124,111,255,0.2); border-radius: 5px; padding: 2px 7px; margin-left: 4px; letter-spacing: 1px; }
+    /* =============================================
+       DATA BACKUP
+       ============================================= */
     .data-section { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
     .data-header { padding: 14px 20px; background: var(--surface2); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .data-title { font-family: 'Rajdhani', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--text2); }
     .data-body { padding: 16px 20px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
     .data-desc { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text3); letter-spacing: 1px; flex: 1; min-width: 200px; line-height: 1.7; }
     .file-input-hidden { display: none; }
+    /* =============================================
+       MODALS
+       ============================================= */
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); z-index: 1002; display: none; align-items: center; justify-content: center; padding: 20px; }
     .modal-overlay.open { display: flex; }
     .modal { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 14px; padding: 24px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
@@ -197,6 +301,19 @@
     .color-row label { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text2); letter-spacing: 1px; min-width: 80px; text-transform: uppercase; }
     .color-row input[type=color] { width: 36px; height: 28px; border: 1px solid var(--border-bright); border-radius: 6px; background: none; cursor: pointer; padding: 2px; }
     .color-row .color-preview { flex: 1; height: 8px; border-radius: 4px; opacity: 0.6; }
+    /* =============================================
+       SETTINGS MODAL
+       ============================================= */
+    .settings-section { margin-bottom: 22px; }
+    .settings-divider { border: none; border-top: 1px solid var(--border); margin: 18px 0; }
+    .theme-toggle-row { display: flex; gap: 8px; }
+    .theme-choice { flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-bright); background: var(--surface2); cursor: pointer; text-align: center; font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--text2); transition: all 0.2s; }
+    .theme-choice:hover { border-color: var(--accent); color: var(--text); }
+    .theme-choice.selected { border-color: var(--accent); background: rgba(0,212,170,0.08); color: var(--accent); }
+    .theme-choice .tc-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+    /* =============================================
+       BANNERS & TOASTS
+       ============================================= */
     .level-up-banner { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0.5); background: var(--surface2); border: 2px solid var(--accent); border-radius: 16px; padding: 32px 48px; text-align: center; z-index: 1000; opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); box-shadow: 0 0 60px rgba(0,212,170,0.3); }
     .level-up-banner.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
     .level-up-banner .lv { font-family: 'Share Tech Mono', monospace; font-size: 12px; letter-spacing: 3px; color: var(--text2); margin-bottom: 8px; }
@@ -236,6 +353,8 @@
   <div class="lv-text">RANK ACHIEVED</div>
 </div>
 <div class="toast" id="toast"></div>
+
+<!-- BG CUSTOMIZE MODAL -->
 <div id="bgModal" class="modal-overlay">
   <div class="modal">
     <div class="modal-header">
@@ -268,14 +387,67 @@
     </div>
   </div>
 </div>
+
+<!-- SETTINGS MODAL -->
+<div id="settingsModal" class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚙ Settings</div>
+      <button class="modal-close" onclick="closeSettingsModal()">✕</button>
+    </div>
+    <div class="settings-section">
+      <div class="modal-section-label">🌙 Theme Mode</div>
+      <div class="theme-toggle-row">
+        <div class="theme-choice" id="themeChoiceDark" onclick="setThemeMode('dark')">
+          <span class="tc-icon">🌑</span>
+          Dark Mode
+        </div>
+        <div class="theme-choice" id="themeChoiceLight" onclick="setThemeMode('light')">
+          <span class="tc-icon">☀️</span>
+          Light Mode
+        </div>
+      </div>
+    </div>
+    <hr class="settings-divider">
+    <div class="settings-section">
+      <div class="modal-section-label">🔊 Sound Effects</div>
+      <div class="theme-toggle-row">
+        <div class="theme-choice" id="soundChoiceOn" onclick="setSoundPref(true)">
+          <span class="tc-icon">🔔</span>
+          Enabled
+        </div>
+        <div class="theme-choice" id="soundChoiceOff" onclick="setSoundPref(false)">
+          <span class="tc-icon">🔕</span>
+          Disabled
+        </div>
+      </div>
+    </div>
+    <hr class="settings-divider">
+    <div class="settings-section">
+      <div class="modal-section-label">✨ Streak Multiplier</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text2);line-height:1.8;letter-spacing:1px;">
+        Streak multiplier boosts XP earned:<br>
+        <span style="color:var(--accent)">7+ days → 1.2×</span> &nbsp;
+        <span style="color:var(--accent2)">14+ days → 1.5×</span> &nbsp;
+        <span style="color:var(--amber)">30+ days → 2×</span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="closeSettingsModal()">Done</button>
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <header>
     <div class="logo">Level<span>Up</span></div>
     <div class="header-right">
       <button class="bg-unlock-btn" id="bgUnlockBtn" onclick="openBgModal()">🎨 Customize</button>
+      <button class="btn-settings" onclick="openSettingsModal()">⚙ Settings</button>
       <div class="level-badge" id="headerLevel">LVL 1</div>
     </div>
   </header>
+
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-label">Total XP</div>
@@ -298,6 +470,7 @@
       <div class="stat-sub">daily completion</div>
     </div>
   </div>
+
   <div class="xp-section">
     <div class="xp-header">
       <span class="xp-label">XP to Next Level</span>
@@ -307,9 +480,11 @@
       <div class="xp-bar-fill" id="xpBarFill" style="width:0%"></div>
     </div>
   </div>
+
   <div class="streak-warning" id="streakWarning">
     ⚠️ &nbsp;STREAK AT RISK — Complete at least one mission today to keep your streak alive!
   </div>
+
   <div class="date-nav">
     <button class="date-btn" onclick="changeDate(-1)">← PREV</button>
     <div class="date-display">
@@ -319,6 +494,7 @@
     <button class="date-btn today-btn" onclick="goToToday()">● TODAY</button>
     <button class="date-btn" onclick="changeDate(1)">NEXT →</button>
   </div>
+
   <div class="task-section">
     <div class="task-header">
       <div class="task-title">◆ Mission Log</div>
@@ -345,6 +521,7 @@
           <option value="easy">✦ Easy (+5 XP)</option>
           <option value="hard">💀 Hard (+20 XP)</option>
         </select>
+
       </div>
     </div>
     <div class="task-list" id="taskList"></div>
@@ -354,6 +531,7 @@
       <span class="comp-pct" id="compPct">0%</span>
     </div>
   </div>
+
   <div class="weekly-section">
     <div class="weekly-header">
       <div class="weekly-title">◆ Weekly Summary</div>
@@ -377,6 +555,17 @@
       <div class="weekly-best-day" id="weeklyBestDay">No data this week yet — start completing missions!</div>
     </div>
   </div>
+
+  <!-- SYSTEM INSIGHTS -->
+  <div class="insights-section">
+    <div class="insights-header">
+      <div class="insights-title">🧠 System Insights</div>
+      <button class="insights-refresh" onclick="renderInsights()">↻ Refresh</button>
+    </div>
+    <div id="insightsBody"></div>
+  </div>
+
+  <!-- ACTIVITY LOG — FIXED -->
   <div class="history-section">
     <div class="history-header">
       <div class="history-title">◆ Activity Log</div>
@@ -387,6 +576,7 @@
     </div>
     <div class="history-grid" id="historyGrid"></div>
   </div>
+
   <div class="data-section">
     <div class="data-header">
       <div class="data-title">◆ Data Backup</div>
@@ -399,14 +589,24 @@
     </div>
   </div>
 </div>
+
 <script>
+  // =============================================
+  // STORAGE HELPERS
+  // =============================================
   const S = {
     get: k => { try { return JSON.parse(localStorage.getItem('lrpg_' + k)); } catch { return null; } },
     set: (k, v) => localStorage.setItem('lrpg_' + k, JSON.stringify(v)),
   };
-  function dateKey(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+  function dateKey(d) {
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
   function todayKey() { return dateKey(new Date()); }
-  function offsetDate(base, offset) { const d = new Date(base + 'T12:00:00'); d.setDate(d.getDate() + offset); return dateKey(d); }
+  function offsetDate(base, offset) {
+    const d = new Date(base + 'T12:00:00');
+    d.setDate(d.getDate() + offset);
+    return dateKey(d);
+  }
   let currentDate = todayKey();
   let previousLevel = null;
   function getTasks(key) { return S.get('tasks_' + key) || []; }
@@ -414,7 +614,60 @@
   function getStats() { return S.get('stats') || { totalXP: 0, streak: 0, bestStreak: 0, lastActiveDate: null }; }
   function setStats(s) { S.set('stats', s); }
   const XP_MAP = { easy: 5, medium: 10, hard: 20 };
-  function calcXPAndLevel(totalXP) { const level = Math.max(1, Math.floor(totalXP / 100) + 1); const xpInLevel = totalXP % 100; return { level, xpInLevel }; }
+
+  // =============================================
+  // SETTINGS SYSTEM
+  // =============================================
+  function getSettings() {
+    return S.get('settings') || { theme: 'dark', sound: true };
+  }
+  function saveSettings(s) { S.set('settings', s); }
+
+  function setThemeMode(mode) {
+    const s = getSettings();
+    s.theme = mode;
+    saveSettings(s);
+    applyThemeMode(mode);
+    document.getElementById('themeChoiceDark').classList.toggle('selected', mode === 'dark');
+    document.getElementById('themeChoiceLight').classList.toggle('selected', mode === 'light');
+  }
+  function applyThemeMode(mode) {
+    document.documentElement.setAttribute('data-theme', mode === 'light' ? 'light' : 'dark');
+  }
+  function setSoundPref(enabled) {
+    const s = getSettings();
+    s.sound = enabled;
+    saveSettings(s);
+    document.getElementById('soundChoiceOn').classList.toggle('selected', enabled);
+    document.getElementById('soundChoiceOff').classList.toggle('selected', !enabled);
+  }
+  function openSettingsModal() {
+    const s = getSettings();
+    document.getElementById('themeChoiceDark').classList.toggle('selected', s.theme !== 'light');
+    document.getElementById('themeChoiceLight').classList.toggle('selected', s.theme === 'light');
+    document.getElementById('soundChoiceOn').classList.toggle('selected', s.sound !== false);
+    document.getElementById('soundChoiceOff').classList.toggle('selected', s.sound === false);
+    document.getElementById('settingsModal').classList.add('open');
+  }
+  function closeSettingsModal() { document.getElementById('settingsModal').classList.remove('open'); }
+  document.getElementById('settingsModal').addEventListener('click', function(e) {
+    if (e.target === this) closeSettingsModal();
+  });
+
+  // =============================================
+  // XP & LEVEL
+  // =============================================
+  function getStreakMultiplier(streak) {
+    if (streak >= 30) return 2.0;
+    if (streak >= 14) return 1.5;
+    if (streak >= 7)  return 1.2;
+    return 1.0;
+  }
+  function calcXPAndLevel(totalXP) {
+    const level = Math.max(1, Math.floor(totalXP / 100) + 1);
+    const xpInLevel = totalXP % 100;
+    return { level, xpInLevel };
+  }
   function recalcTotalXP() {
     let total = 0;
     Object.keys(localStorage).filter(k => k.startsWith('lrpg_tasks_')).forEach(k => {
@@ -457,9 +710,11 @@
     const stats = getStats();
     const bestStreak = Math.max(stats.bestStreak || 0, streak);
     setStats({ totalXP, streak, bestStreak, lastActiveDate: todayKey() });
+    const mult = getStreakMultiplier(streak);
+    const multLabel = mult > 1 ? `<span class="streak-multiplier">${mult}×</span>` : '';
     document.getElementById('statXP').textContent = totalXP.toLocaleString();
     document.getElementById('statLevel').textContent = level;
-    document.getElementById('statStreak').textContent = streak + ' 🔥';
+    document.getElementById('statStreak').innerHTML = streak + ' 🔥' + multLabel;
     document.getElementById('bestStreak').textContent = bestStreak;
     document.getElementById('statAvg').textContent = calcAvgCompletion() + '%';
     document.getElementById('headerLevel').textContent = 'LVL ' + level;
@@ -470,7 +725,16 @@
     checkBgUnlock(streak);
     checkStreakWarning(streak);
     renderWeeklySummary();
+    renderInsights();
   }
+
+
+
+  // =============================================
+  // TASK RENDERING
+  // =============================================
+  let undoStack = []; // { dateKey, tasks }
+
   function renderTasks() {
     const tasks = getTasks(currentDate);
     const list = document.getElementById('taskList');
@@ -479,9 +743,15 @@
     const pct = total ? Math.round(done / total * 100) : 0;
     document.getElementById('compFill').style.width = pct + '%';
     document.getElementById('compPct').textContent = pct + '%';
-    if (!tasks.length) { list.innerHTML = '<div class="task-empty">[ NO MISSIONS LOGGED ]</div>'; return; }
+    if (!tasks.length) {
+      list.innerHTML = '<div class="task-empty">[ NO MISSIONS LOGGED ]</div>';
+      return;
+    }
     list.innerHTML = tasks.map((t, i) => {
       const xp = XP_MAP[t.difficulty || 'medium'] || 10;
+      const catClass = t.category && t.category !== 'other' ? `category-${t.category}` : 'category-other';
+      const catLabel = t.category ? t.category : 'other';
+      const catEmoji = {health:'💚',work:'💼',personal:'💗',fitness:'🔥',other:'📌'}[t.category] || '📌';
       return `<div class="task-item ${t.done ? 'done' : ''}" id="task-${i}" draggable="true"
         ondragstart="dragStart(event,${i})" ondragover="dragOver(event,${i})"
         ondragleave="dragLeave(event,${i})" ondrop="dragDrop(event,${i})" ondragend="dragEnd()">
@@ -491,12 +761,14 @@
             <path d="M1 5L4.5 8.5L11 1" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="task-text">${escapeHtml(t.text)}</div>
+        <div class="task-text" id="task-text-${i}">${escapeHtml(t.text)}</div>
         <div class="task-badges">
-          ${t.category && t.category !== 'other' ? `<span class="badge badge-${t.category}">${t.category}</span>` : ''}
+          <span class="badge ${catClass}">${catEmoji} ${catLabel}</span>
           ${t.difficulty && t.difficulty !== 'medium' ? `<span class="badge badge-${t.difficulty}">${t.difficulty}</span>` : ''}
           <span class="xp-badge">+${xp} XP</span>
         </div>
+        <button class="task-edit-btn" onclick="editTask(${i})" title="Edit">✎</button>
+        <button class="task-undo-btn" onclick="undoLastAction()" title="Undo last action" style="display:${undoStack.length ? 'flex' : 'none'}">↩</button>
         <button class="task-del" onclick="deleteTask(${i})">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
             <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -505,7 +777,62 @@
       </div>`;
     }).join('');
   }
-  function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // =============================================
+  // TASK EDIT + UNDO
+  // =============================================
+  function editTask(idx) {
+    const tasks = getTasks(currentDate);
+    const t = tasks[idx];
+    const item = document.getElementById('task-' + idx);
+    const textEl = document.getElementById('task-text-' + idx);
+    if (!item || !textEl) return;
+    item.classList.add('editing-mode');
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'task-edit-input';
+    inp.value = t.text;
+    inp.maxLength = 120;
+    textEl.replaceWith(inp);
+    inp.focus();
+    inp.select();
+    const commit = () => {
+      const newText = inp.value.trim();
+      if (newText && newText !== t.text) {
+        pushUndo();
+        tasks[idx].text = newText;
+        setTasks(currentDate, tasks);
+        showToast('Mission updated');
+      }
+      renderTasks();
+    };
+    inp.addEventListener('blur', commit);
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); commit(); }
+      if (e.key === 'Escape') renderTasks();
+    });
+  }
+
+  function pushUndo() {
+    undoStack.push({ dateKey: currentDate, tasks: JSON.parse(JSON.stringify(getTasks(currentDate))) });
+    if (undoStack.length > 10) undoStack.shift();
+  }
+  function undoLastAction() {
+    if (!undoStack.length) { showToast('Nothing to undo'); return; }
+    const { dateKey: dk, tasks } = undoStack.pop();
+    setTasks(dk, tasks);
+    if (dk === currentDate) renderTasks();
+    updateStats();
+    showToast('Undone ↩');
+  }
+
+  // =============================================
+  // DATE DISPLAY
+  // =============================================
   function updateDateDisplay() {
     const today = todayKey();
     const el = document.getElementById('dateMain');
@@ -517,13 +844,18 @@
       el.textContent = 'Today'; el.className = 'date-main today';
       sub.textContent = days[d.getDay()] + ' · ' + months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
     } else {
-      el.textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate(); el.className = 'date-main';
+      el.textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate();
+      el.className = 'date-main';
       sub.textContent = d.getFullYear() + (currentDate < today ? ' · PAST LOG' : ' · FUTURE LOG');
     }
   }
   function goToToday() { currentDate = todayKey(); updateDateDisplay(); renderTasks(); renderHistory(); updateStats(); }
   function changeDate(offset) { currentDate = offsetDate(currentDate, offset); updateDateDisplay(); renderTasks(); renderHistory(); updateStats(); }
   function jumpToDate(key) { currentDate = key; updateDateDisplay(); renderTasks(); renderHistory(); updateStats(); }
+
+  // =============================================
+  // ACTIVITY LOG — FIXED ORDERING (TASK 1)
+  // =============================================
   let historyView = 'week';
   function setHistoryView(v) {
     historyView = v;
@@ -531,26 +863,76 @@
     document.getElementById('tabAll').className = 'history-tab' + (v === 'all' ? ' active' : '');
     renderHistory();
   }
+
   function renderHistory() {
     const grid = document.getElementById('historyGrid');
     const today = todayKey();
-    const days = historyView === 'week' ? 7 : 365;
-    let html = '';
-    for (let i = days - 1; i >= 0; i--) {
-      const d = new Date(today + 'T12:00:00');
-      d.setDate(d.getDate() - i);
-      const k = dateKey(d);
-      const hasTasks = getTasks(k).some(t => t.done);
-      const isActive = k === currentDate, isToday = k === today;
-      let cls = 'history-day' + (hasTasks ? ' has-tasks' : '') + (isActive ? ' active' : '') + (isToday && !isActive ? ' today-dot' : '');
-      const label = historyView === 'all' ? d.getDate() : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
-      const ws = historyView === 'week' ? 'flex:1;min-width:36px;height:44px;font-size:11px;flex-direction:column;gap:2px;' : '';
-      html += `<div class="${cls}" onclick="jumpToDate('${k}')" title="${k}" style="${ws}">
-        ${historyView === 'week' ? `<span style="font-size:9px;opacity:0.6">${label}</span><span>${d.getDate()}</span>` : d.getDate()}
-      </div>`;
+
+    if (historyView === 'week') {
+      // TASK 1 FIX: Always show Sun→Sat for the current calendar week
+      // Find Sunday of the week containing today
+      const todayDate = new Date(today + 'T12:00:00');
+      const sundayOffset = todayDate.getDay(); // 0=Sun, 1=Mon, ...
+      const weekDays = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(today + 'T12:00:00');
+        d.setDate(todayDate.getDate() - sundayOffset + i);
+        weekDays.push(d);
+      }
+      const DAY_ABBR = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+      let html = '';
+      weekDays.forEach(d => {
+        const k = dateKey(d);
+        const hasTasks = getTasks(k).some(t => t.done);
+        const isActive = k === currentDate;
+        const isToday = k === today;
+        let cls = 'history-day';
+        if (hasTasks) cls += ' has-tasks';
+        if (isActive) cls += ' active';
+        else if (isToday) cls += ' today-dot';
+        html += `<div class="${cls}" onclick="jumpToDate('${k}')" title="${k}"
+          style="flex:1;min-width:36px;height:50px;font-size:11px;flex-direction:column;gap:2px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:9px;opacity:0.6;letter-spacing:1px">${DAY_ABBR[d.getDay()]}</span>
+          <span>${d.getDate()}</span>
+        </div>`;
+      });
+      grid.innerHTML = html;
+
+    } else {
+      // TASK 1 FIX: All Time — strictly oldest→newest, never reversed
+      // Collect all task keys, parse dates, sort ascending
+      const allKeys = Object.keys(localStorage)
+        .filter(k => k.startsWith('lrpg_tasks_'))
+        .map(k => k.replace('lrpg_tasks_', ''))
+        .filter(k => /^\d{4}-\d{2}-\d{2}$/.test(k));
+
+      // Sort ascending: oldest first → newest last
+      allKeys.sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+
+      if (!allKeys.length) {
+        grid.innerHTML = '<div style="padding:20px;font-family:\'Share Tech Mono\',monospace;font-size:11px;color:var(--text3);letter-spacing:1px;">No history yet. Start logging missions!</div>';
+        return;
+      }
+
+      let html = '';
+      allKeys.forEach(k => {
+        const d = new Date(k + 'T12:00:00');
+        const hasTasks = getTasks(k).some(t => t.done);
+        const isActive = k === currentDate;
+        const isToday = k === today;
+        let cls = 'history-day';
+        if (hasTasks) cls += ' has-tasks';
+        if (isActive) cls += ' active';
+        else if (isToday) cls += ' today-dot';
+        html += `<div class="${cls}" onclick="jumpToDate('${k}')" title="${k}">${d.getDate()}</div>`;
+      });
+      grid.innerHTML = html;
     }
-    grid.innerHTML = html;
   }
+
+  // =============================================
+  // WEEKLY SUMMARY
+  // =============================================
   function renderWeeklySummary() {
     const today = todayKey();
     const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -586,6 +968,10 @@
       ? `🏆 Best day this week: ${bestDayName} with ${bestDayDone} mission${bestDayDone !== 1 ? 's' : ''} completed`
       : 'No missions completed this week yet — start grinding!';
   }
+
+  // =============================================
+  // TASK ACTIONS
+  // =============================================
   function handleKey(e) { if (e.key === 'Enter') addTask(); }
   function addTask() {
     const input = document.getElementById('taskInput');
@@ -593,26 +979,48 @@
     if (!text) return;
     const category = document.getElementById('taskCategory').value;
     const difficulty = document.getElementById('taskDifficulty').value;
+    pushUndo();
     const tasks = getTasks(currentDate);
-    tasks.push({ text, done: false, id: Date.now(), category, difficulty });
+    const newTask = { text, done: false, id: Date.now(), category, difficulty };
+    tasks.push(newTask);
     setTasks(currentDate, tasks);
     input.value = '';
     renderTasks(); updateStats(); renderHistory();
+    // Flash the newly added task neon
+    const newIdx = getTasks(currentDate).length - 1;
+    const newEl = document.getElementById('task-' + newIdx);
+    if (newEl) {
+      newEl.classList.add('new-flash');
+      newEl.addEventListener('animationend', () => newEl.classList.remove('new-flash'), { once: true });
+    }
   }
   function toggleTask(idx) {
     const tasks = getTasks(currentDate);
     const wasUndone = !tasks[idx].done;
+    pushUndo();
     tasks[idx].done = !tasks[idx].done;
     setTasks(currentDate, tasks);
-    if (wasUndone) { showXPFloat('+' + (XP_MAP[tasks[idx].difficulty || 'medium'] || 10) + ' XP'); playCheckSound(); }
+    if (wasUndone) {
+      const baseXP = XP_MAP[tasks[idx].difficulty || 'medium'] || 10;
+      const streak = calcStreak();
+      const mult = getStreakMultiplier(streak);
+      const finalXP = Math.round(baseXP * mult);
+      const label = mult > 1 ? `+${finalXP} XP (${mult}×)` : `+${baseXP} XP`;
+      showXPFloat(label);
+      playCheckSound();
+    }
     renderTasks(); updateStats(); renderHistory();
   }
   function deleteTask(idx) {
-    const tasks = getTasks(currentDate); tasks.splice(idx, 1);
-    setTasks(currentDate, tasks); renderTasks(); updateStats(); renderHistory();
+    pushUndo();
+    const tasks = getTasks(currentDate);
+    tasks.splice(idx, 1);
+    setTasks(currentDate, tasks);
+    renderTasks(); updateStats(); renderHistory();
   }
   function clearToday() {
     if (!confirm('Clear all tasks for this day?')) return;
+    pushUndo();
     setTasks(currentDate, []); renderTasks(); updateStats(); renderHistory();
   }
   function copyYesterday() {
@@ -620,13 +1028,25 @@
     if (!yTasks.length) { showToast('No tasks found in previous day'); return; }
     const existing = getTasks(currentDate);
     const existingTexts = new Set(existing.map(t => t.text));
-    const toAdd = yTasks.filter(t => !existingTexts.has(t.text)).map(t => ({ text: t.text, done: false, id: Date.now() + Math.random(), category: t.category || 'other', difficulty: t.difficulty || 'medium' }));
+    const toAdd = yTasks.filter(t => !existingTexts.has(t.text)).map(t => ({
+      text: t.text, done: false, id: Date.now() + Math.random(),
+      category: t.category || 'other', difficulty: t.difficulty || 'medium', recurring: t.recurring || false
+    }));
     if (!toAdd.length) { showToast('Tasks already copied'); return; }
+    pushUndo();
     setTasks(currentDate, [...existing, ...toAdd]);
     renderTasks(); updateStats(); showToast(`Copied ${toAdd.length} mission${toAdd.length > 1 ? 's' : ''}`);
   }
+
+  // =============================================
+  // DRAG & DROP
+  // =============================================
   let dragIdx = null;
-  function dragStart(e, idx) { dragIdx = idx; setTimeout(() => document.getElementById('task-' + idx)?.classList.add('dragging'), 0); e.dataTransfer.effectAllowed = 'move'; }
+  function dragStart(e, idx) {
+    dragIdx = idx;
+    setTimeout(() => document.getElementById('task-' + idx)?.classList.add('dragging'), 0);
+    e.dataTransfer.effectAllowed = 'move';
+  }
   function dragOver(e, idx) {
     e.preventDefault();
     if (dragIdx === null || dragIdx === idx) return;
@@ -652,11 +1072,175 @@
     else if (!insertAfter && idx > dragIdx) newIdx = idx - 1;
     else newIdx = idx;
     tasks.splice(Math.max(0, newIdx), 0, moved);
-    setTasks(currentDate, tasks); dragIdx = null; clearDragClasses(); renderTasks();
+    setTasks(currentDate, tasks);
+    dragIdx = null; clearDragClasses(); renderTasks();
   }
-  function dragEnd() { dragIdx = null; clearDragClasses(); document.querySelectorAll('.task-item').forEach(el => el.classList.remove('dragging')); }
-  function clearDragClasses() { document.querySelectorAll('.task-item').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bot')); }
+  function dragEnd() {
+    dragIdx = null; clearDragClasses();
+    document.querySelectorAll('.task-item').forEach(el => el.classList.remove('dragging'));
+  }
+  function clearDragClasses() {
+    document.querySelectorAll('.task-item').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bot'));
+  }
+
+  // =============================================
+  // SYSTEM INSIGHTS (TASK 2)
+  // =============================================
+  function getAllTaskData() {
+    // Returns array of { key: 'YYYY-MM-DD', date: Date, tasks: [] }
+    return Object.keys(localStorage)
+      .filter(k => k.startsWith('lrpg_tasks_'))
+      .map(k => {
+        const key = k.replace('lrpg_tasks_', '');
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(key)) return null;
+        const tasks = JSON.parse(localStorage.getItem(k)) || [];
+        return { key, date: new Date(key + 'T12:00:00'), tasks };
+      })
+      .filter(Boolean)
+      .filter(d => d.tasks.length > 0);
+  }
+
+  function insightMostProductiveDay(data) {
+    // Sum completed tasks per weekday (0=Sun..6=Sat)
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const counts = new Array(7).fill(0);
+    data.forEach(({ date, tasks }) => {
+      counts[date.getDay()] += tasks.filter(t => t.done).length;
+    });
+    const max = Math.max(...counts);
+    if (max === 0) return null;
+    const bestDay = counts.indexOf(max);
+    return {
+      icon: '🧠',
+      label: 'Peak Performance',
+      value: dayNames[bestDay],
+      sub: `You complete the most missions on ${dayNames[bestDay]}s — ${max} total completed`,
+      cls: 'ic-brain'
+    };
+  }
+
+  function insightCompletionTrend(data) {
+    const today = new Date(todayKey() + 'T12:00:00');
+    // last 7 days vs previous 7 days
+    const last7 = [], prev7 = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(today); d.setDate(today.getDate() - i);
+      const k = dateKey(d);
+      const entry = data.find(x => x.key === k);
+      if (entry && entry.tasks.length) {
+        const pct = entry.tasks.filter(t => t.done).length / entry.tasks.length * 100;
+        last7.push(pct);
+      }
+    }
+    for (let i = 7; i < 14; i++) {
+      const d = new Date(today); d.setDate(today.getDate() - i);
+      const k = dateKey(d);
+      const entry = data.find(x => x.key === k);
+      if (entry && entry.tasks.length) {
+        const pct = entry.tasks.filter(t => t.done).length / entry.tasks.length * 100;
+        prev7.push(pct);
+      }
+    }
+    if (!last7.length && !prev7.length) return null;
+    const avg7 = last7.length ? last7.reduce((a,b) => a+b,0)/last7.length : 0;
+    const avgPrev = prev7.length ? prev7.reduce((a,b) => a+b,0)/prev7.length : 0;
+    const delta = avg7 - avgPrev;
+    const improving = delta > 3;
+    const declining = delta < -3;
+    return {
+      icon: improving ? '📈' : declining ? '📉' : '📊',
+      label: 'Completion Trend',
+      value: improving ? 'Improving' : declining ? 'Declining' : 'Steady',
+      sub: prev7.length
+        ? `This week: ${Math.round(avg7)}% vs last week: ${Math.round(avgPrev)}% (${delta > 0 ? '+' : ''}${Math.round(delta)}%)`
+        : `This week avg: ${Math.round(avg7)}% completion`,
+      valueClass: improving ? 'positive' : declining ? 'negative' : 'neutral',
+      cls: 'ic-trend'
+    };
+  }
+
+  function insightBestCategory(data) {
+    const catEmoji = {health:'💚',work:'💼',personal:'💗',fitness:'🔥',other:'📌'};
+    const counts = {};
+    data.forEach(({ tasks }) => {
+      tasks.filter(t => t.done).forEach(t => {
+        const cat = t.category || 'other';
+        counts[cat] = (counts[cat] || 0) + 1;
+      });
+    });
+    if (!Object.keys(counts).length) return null;
+    const best = Object.entries(counts).sort((a,b) => b[1]-a[1])[0];
+    const [cat, count] = best;
+    return {
+      icon: catEmoji[cat] || '📌',
+      label: 'Strongest Category',
+      value: cat.charAt(0).toUpperCase() + cat.slice(1),
+      sub: `${count} completed ${cat} missions — your most consistent area`,
+      cls: 'ic-category'
+    };
+  }
+
+  function insightSkipPattern(data) {
+    // Find day-of-week with lowest completion rate (potential skip pattern)
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dayStats = Array.from({length:7}, () => ({ done: 0, total: 0 }));
+    data.forEach(({ date, tasks }) => {
+      if (!tasks.length) return;
+      const dow = date.getDay();
+      dayStats[dow].total += tasks.length;
+      dayStats[dow].done += tasks.filter(t => t.done).length;
+    });
+    const rates = dayStats.map((s, i) => ({
+      day: i,
+      rate: s.total > 0 ? s.done / s.total : null,
+      total: s.total
+    })).filter(s => s.rate !== null && s.total >= 2);
+    if (!rates.length) return null;
+    rates.sort((a, b) => a.rate - b.rate);
+    const worst = rates[0];
+    const pct = Math.round(worst.rate * 100);
+    return {
+      icon: '⏰',
+      label: 'Weak Spot Detected',
+      value: dayNames[worst.day],
+      sub: `Only ${pct}% completion rate on ${dayNames[worst.day]}s — consider lighter missions that day`,
+      valueClass: pct < 40 ? 'negative' : 'neutral',
+      cls: 'ic-time'
+    };
+  }
+
+  function renderInsights() {
+    const body = document.getElementById('insightsBody');
+    const data = getAllTaskData();
+    if (!data.length) {
+      body.innerHTML = `<div class="insights-empty">[ NO DATA YET — Complete some missions to unlock insights ]</div>`;
+      return;
+    }
+    const generators = [
+      insightMostProductiveDay,
+      insightCompletionTrend,
+      insightBestCategory,
+      insightSkipPattern
+    ];
+    const insights = generators.map(fn => fn(data)).filter(Boolean);
+    if (!insights.length) {
+      body.innerHTML = `<div class="insights-empty">[ KEEP LOGGING — More data needed for insights ]</div>`;
+      return;
+    }
+    body.innerHTML = `<div class="insights-body">${insights.map(ins => `
+      <div class="insight-card ${ins.cls}">
+        <span class="insight-icon">${ins.icon}</span>
+        <div class="insight-label">${ins.label}</div>
+        <div class="insight-value ${ins.valueClass || ''}">${ins.value}</div>
+        <div class="insight-sub">${ins.sub}</div>
+      </div>`).join('')}</div>`;
+  }
+
+  // =============================================
+  // AUDIO
+  // =============================================
   function playCheckSound() {
+    if (getSettings().sound === false) return;
     try {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const o = ctx.createOscillator(), g = ctx.createGain();
@@ -668,6 +1252,10 @@
       o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.35);
     } catch(e) {}
   }
+
+  // =============================================
+  // DATA BACKUP
+  // =============================================
   function exportData() {
     const data = {};
     Object.keys(localStorage).filter(k => k.startsWith('lrpg_')).forEach(k => { data[k] = localStorage.getItem(k); });
@@ -691,6 +1279,10 @@
     };
     reader.readAsText(file); e.target.value = '';
   }
+
+  // =============================================
+  // UI HELPERS
+  // =============================================
   function showXPFloat(text) {
     const el = document.createElement('div'); el.className = 'xp-float'; el.textContent = text;
     el.style.left = (window.innerWidth * 0.5 + (Math.random() * 100 - 50)) + 'px';
@@ -708,6 +1300,10 @@
     const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show');
     setTimeout(() => el.classList.remove('show'), 2400);
   }
+
+  // =============================================
+  // BG THEMES
+  // =============================================
   const BG_THEMES = [
     { id: 'default',  name: 'Default',  bg: '#0a0c10', surface: '#111318', surface2: '#181c24', border: '#1e2430', borderBright: '#2a3445', accent: '#00d4aa', accent2: '#7c6fff', style: 'background:#0a0c10' },
     { id: 'midnight', name: 'Midnight', bg: '#06060f', surface: '#0d0d1a', surface2: '#13132a', border: '#1a1a35', borderBright: '#252550', accent: '#a78bfa', accent2: '#60a5fa', style: 'background:linear-gradient(135deg,#06060f,#0d0818)' },
@@ -783,9 +1379,23 @@
     if (saved && saved !== 'default') { const t = BG_THEMES.find(x => x.id === saved); if (t) applyTheme(t.bg, t.surface, t.surface2, t.border, t.borderBright, t.accent, t.accent2); }
     if (localStorage.getItem('lrpg_bgUnlocked') === '1') document.getElementById('bgUnlockBtn').classList.add('visible');
   }
-  loadSavedTheme();
-  previousLevel = calcXPAndLevel(recalcTotalXP()).level;
-  updateDateDisplay(); renderTasks(); updateStats(); renderHistory(); renderWeeklySummary();
+
+  // =============================================
+  // INIT
+  // =============================================
+  (function init() {
+    // Apply saved theme mode (light/dark)
+    const settings = getSettings();
+    applyThemeMode(settings.theme || 'dark');
+    loadSavedTheme();
+    previousLevel = calcXPAndLevel(recalcTotalXP()).level;
+    updateDateDisplay();
+    renderTasks();
+    updateStats();
+    renderHistory();
+    renderWeeklySummary();
+    renderInsights();
+  })();
 </script>
 </body>
 </html>
